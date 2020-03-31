@@ -19,7 +19,7 @@ func NewUsers(l*log.Logger) *Users {
 
 // ServeHTTP func
 func (u *Users) ServeHTTP(rw http.ResponseWriter, h *http.Request) {
-	lu :=data.GetUsers()
+	lu := data.GetUsers()
 	d, err := json.Marshal(lu)
 	if err != nil {
 		http.Error(rw, "Unable to marshal json", http.StatusInternalServerError)
