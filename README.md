@@ -1,5 +1,5 @@
 <p align="left">
-  <a href="https://github.com/tobeck/user-api"><img alt="Github Actions status" src="https://github.com/tobeck/user-api/workflows/Go/badge.svg"></a>
+  <a href="https://github.com/tobeck/user-api"><img alt="Github Actions status" src="https://github.com/tobeck/user-api/workflows/build/badge.svg"></a>
 </p>
 
 # user-api caching written in GO
