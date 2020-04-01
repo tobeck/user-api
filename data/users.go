@@ -1,5 +1,10 @@
 package data
 
+import (
+	"encoding/json"
+	"io"
+)
+
 // User struct
 type User struct {
 		GUID      string `json:"guid"`
@@ -10,11 +15,22 @@ type User struct {
 		IPAddress string `json:"ip_address"`
 }
 
-// GetUsers func
-func GetUsers() []*User {
+// Users type
+type Users []*User
+
+// ToJSON func to encode to json
+func (u*Users) ToJSON(w io.Writer) error {
+	// Create new encoder to use instead of marshal
+	e := json.NewEncoder(w)
+	return e.Encode(u)
+}
+
+// GetUsers func for testing json userList
+func GetUsers() Users {
 	return userList
 }
 
+// TODO: Remove once reading from testData file
 var userList = []*User{
 	&User{
 		GUID: "0e9ffffa-de3e-4378-a1a1-491d59c46425",
