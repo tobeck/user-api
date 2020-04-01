@@ -1,7 +1,7 @@
 package main
 
 import (
-	"tobeck.github.com/user-api/handlers"
+	"github.com/tobeck/user-api/handlers"
 	"log"
 	"net/http"
 	"os"
