@@ -3,7 +3,7 @@ package handlers
 import (
 	"log"
 	"net/http"
-	"tobeck.github.com/user-api/data"
+	"github.com/tobeck/user-api/data"
 )
 
 // Users struct
