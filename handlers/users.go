@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"tobeck.github.com/user-api/data"
-	"encoding/json"
 )
 
 // Users struct
@@ -12,17 +11,28 @@ type Users struct {
 	l *log.Logger
 }
 
-// NewUsers func
+// NewUsers func to write json
 func NewUsers(l*log.Logger) *Users {
 	return &Users{l}
 }
 
-// ServeHTTP func
-func (u *Users) ServeHTTP(rw http.ResponseWriter, h *http.Request) {
+// ServeHTTP
+func (u*Users) ServeHTTP(rw http.ResponseWriter, r*http.Request) {
+	if r.Method == http.MethodGet {
+		u.getUsers(rw, r)
+		return
+	}
+
+	// Catch all for not yet implemented
+	rw.WriteHeader(http.StatusMethodNotAllowed)
+}
+
+// getUsers func return Users to the ResponseWriter
+func (u *Users) getUsers(rw http.ResponseWriter, h *http.Request) {
 	lu := data.GetUsers()
-	d, err := json.Marshal(lu)
+	// Use ToJSON encoder instead of marshal, to avoid having to buffer into memory
+	err := lu.ToJSON(rw)
 	if err != nil {
 		http.Error(rw, "Unable to marshal json", http.StatusInternalServerError)
 	}
-	rw.Write(d)
 }
