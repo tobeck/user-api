@@ -7,25 +7,25 @@ import (
 
 // User struct
 type User struct {
-		GUID      string `json:"guid"`
-		FirstName string `json:"first_name"`
-		LastName  string `json:"last_name"`
-		Email     string `json:"email"`
-		Gender    string `json:"gender"`
-		IPAddress string `json:"ip_address"`
+	ID        int    `json:"guid"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Email     string `json:"email"`
+	Gender    string `json:"gender"`
+	IPAddress string `json:"ip_address"`
 }
 
 // Users type
 type Users []*User
 
 // ToJSON func to encode to json
-func (u*Users) ToJSON(w io.Writer) error {
+func (u *Users) ToJSON(w io.Writer) error {
 	// Create new encoder to use instead of marshal
 	e := json.NewEncoder(w)
 	return e.Encode(u)
 }
 
-// GetUsers func for testing json userList
+// GetUsers GET users
 func GetUsers() Users {
 	return userList
 }
