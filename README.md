@@ -9,3 +9,9 @@
 * http GET/<key> response is 404 if no such key.
 * Cached users expire after 30 minutes.
 * Load with an 80/20 ratio of read/writes.
+
+### More stuff..
+* tests
+* tls
+* dockerized
+* swagger
