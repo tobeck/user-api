@@ -1,30 +1,33 @@
 package main
 
 import (
-	"github.com/tobeck/user-api/handlers"
+	"context"
 	"log"
 	"net/http"
 	"os"
-	"time"
-	"context"
 	"os/signal"
+	"time"
+
+	"github.com/gorilla/mux"
+	"github.com/tobeck/user-api/handlers"
 )
 
 func main() {
 	l := log.New(os.Stdout, "user-api", log.LstdFlags)
 
-	// User handler
+	// Handers
 	uh := handlers.NewUsers(l)
 
-	// Server mux
-	sm := http.NewServeMux()
-	sm.Handle("/", uh)
+	// Register handlers
+	sm := mux.NewRouter()
+	getRouter := sm.Methods(http.MethodGet).Subrouter()
+	getRouter.HandleFunc("/", uh.GetUsers)
 
 	// Server configuration
 	s := &http.Server{
-		Addr: ":8080",
-		Handler: sm,
-		ReadTimeout: 10 * time.Second,
+		Addr:         ":8080",
+		Handler:      sm,
+		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
 
@@ -40,7 +43,7 @@ func main() {
 	signal.Notify(sigChan, os.Interrupt)
 	signal.Notify(sigChan, os.Kill)
 
-	sig := <- sigChan
+	sig := <-sigChan
 	l.Println("Recieved terminate, graceful shutdown", sig)
 
 	tc, _ := context.WithTimeout(context.Background(), 30*time.Second)
