@@ -5,9 +5,9 @@ import (
 	"io"
 )
 
-// User struct
+// User struct that defines a user entry
 type User struct {
-	ID        int    `json:"guid"`
+	ID        int    `json:"id"`
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
@@ -33,19 +33,19 @@ func GetUsers() Users {
 // TODO: Remove once reading from testData file
 var userList = []*User{
 	&User{
-		GUID: "0e9ffffa-de3e-4378-a1a1-491d59c46425",
+		ID:        1,
 		FirstName: "Gabrielle",
-		LastName: "Kear",
-		Email: "gkear0@trellian.com",
-		Gender: "Female",
+		LastName:  "Kear",
+		Email:     "gkear0@trellian.com",
+		Gender:    "Female",
 		IPAddress: "8.79.142.95",
 	},
 	&User{
-		GUID: "70d01dc1-73b6-466d-a6ad-89bc8e2d1cf5",
+		ID:        2,
 		FirstName: "Fabian",
-		LastName: "Banfill",
-		Email: "fbanfill1@woothemes.com",
-		Gender: "Male",
+		LastName:  "Banfill",
+		Email:     "fbanfill1@woothemes.com",
+		Gender:    "Male",
 		IPAddress: "174.192.211.88",
 	},
 }
