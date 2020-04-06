@@ -18,16 +18,33 @@ type User struct {
 // Users type
 type Users []*User
 
-// ToJSON func to encode to json
+// FromJSON read and decode json
+func (u *User) FromJSON(r io.Reader) error {
+	e := json.NewDecoder(r)
+	return e.Decode(u)
+}
+
+// ToJSON encode and write json
 func (u *Users) ToJSON(w io.Writer) error {
-	// Create new encoder to use instead of marshal
 	e := json.NewEncoder(w)
 	return e.Encode(u)
 }
 
-// GetUsers GET users
+// GetUsers GET all users
 func GetUsers() Users {
 	return userList
+}
+
+// AddUser POST a new user
+func AddUser(u *User) {
+	u.ID = getNextID()
+	userList = append(userList, u)
+}
+
+// getNextID func to generate a new uniq ID
+func getNextID() int {
+	lu := userList[len(userList)-1]
+	return lu.ID + 1
 }
 
 // TODO: Remove once reading from testData file
