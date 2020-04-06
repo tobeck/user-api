@@ -15,13 +15,18 @@ import (
 func main() {
 	l := log.New(os.Stdout, "user-api", log.LstdFlags)
 
-	// Handers
+	// Handlers
 	uh := handlers.NewUsers(l)
 
 	// Register handlers
 	sm := mux.NewRouter()
+
 	getRouter := sm.Methods(http.MethodGet).Subrouter()
 	getRouter.HandleFunc("/", uh.GetUsers)
+
+	postRouter := sm.Methods(http.MethodPost).Subrouter()
+	postRouter.HandleFunc("/", uh.AddUser)
+	postRouter.Use(uh.MiddlewareValidateUser)
 
 	// Server configuration
 	s := &http.Server{
